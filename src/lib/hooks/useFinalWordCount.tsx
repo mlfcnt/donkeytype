@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
   typedText: string;
   textToType: string;
@@ -18,15 +16,15 @@ export const useFinalWordCount = ({
       accuracy: null,
     };
   }
-  const typpedWords = typedText.split(" ");
-  const amountOfTyppedWords = typpedWords.length;
-  const words = textToType.split(" ").slice(0, amountOfTyppedWords);
+  const typedWords = typedText.split(" ");
+  const amountOfTypedWords = typedWords.length;
+  const words = textToType.split(" ").slice(0, amountOfTypedWords);
 
   const validWords = words.filter(
-    (x, idx) => x?.toLowerCase() === typpedWords[idx]?.toLowerCase()
+    (x, idx) => x?.toLowerCase() === typedWords[idx]?.toLowerCase()
   );
   const invalidWords = words.filter(
-    (x, idx) => x?.toLowerCase() !== typpedWords[idx]?.toLowerCase()
+    (x, idx) => x?.toLowerCase() !== typedWords[idx]?.toLowerCase()
   );
 
   return {

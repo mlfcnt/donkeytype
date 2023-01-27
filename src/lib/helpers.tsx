@@ -1,6 +1,6 @@
 type LetterStatus = "correct" | "wrong" | "not-typed";
 
-export const getTyppedLetterStatus = (
+export const getTypedLetterStatus = (
   typedText: string,
   textToType: string,
   index: number

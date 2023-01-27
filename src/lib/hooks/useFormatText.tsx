@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   getColorToApplyFromLetterStatus,
-  getTyppedLetterStatus,
+  getTypedLetterStatus,
 } from "../helpers";
 
 type UseFormatText = {
@@ -18,11 +18,7 @@ export const useFormatText = ({ textToType, typedText }: UseFormatText) => {
     const formatted = (
       <span>
         {textToType.split("").map((x, idx) => {
-          const letterStatus = getTyppedLetterStatus(
-            typedText,
-            textToType,
-            idx
-          );
+          const letterStatus = getTypedLetterStatus(typedText, textToType, idx);
           return (
             <span
               key={idx}
