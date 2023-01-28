@@ -9,7 +9,6 @@ inspiré par https://monkeytype.com/
 
 ### todo
 
-- récuperer des textes aléatoires
 - plus de stats
 - ...
 

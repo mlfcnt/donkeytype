@@ -2,20 +2,20 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import type { KeyboardEvent } from "react";
 import { useState } from "react";
-import { allowedKeys, randomText } from "../constants";
-import { sanitizeText } from "../lib/helpers";
+import { allowedKeys } from "../constants";
+import { useSanitizedRandomWords } from "../dictionnary/helpers";
 import { useFinalWordCount } from "../lib/hooks/useFinalWordCount";
 import { useFormatText } from "../lib/hooks/useFormatText";
 import { useTimer } from "../lib/hooks/useTimer";
 
 const Home: NextPage = () => {
+  const textToType = useSanitizedRandomWords("fr", 50, 7);
   const [typedText, setTypedText] = useState("");
-  const textToType = sanitizeText(randomText.toLowerCase());
   const { formattedText } = useFormatText({
     textToType,
     typedText,
   });
-  const { remainingTime } = useTimer({ typedText, totalTime: 15_000 });
+  const { remainingTime } = useTimer({ typedText, totalTime: 30_000 });
   const { validWordCount, invalidWordCount, accuracy } = useFinalWordCount({
     textToType,
     typedText,
