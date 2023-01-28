@@ -19,13 +19,18 @@ export const useFormatText = ({ textToType, typedText }: UseFormatText) => {
       <span>
         {textToType.split("").map((x, idx) => {
           const letterStatus = getTypedLetterStatus(typedText, textToType, idx);
+          const isCurrentLetter = idx === typedText.length;
           return (
-            <span
-              key={idx}
-              className={getColorToApplyFromLetterStatus(letterStatus)}
-            >
-              {x}
-            </span>
+            <>
+              <span
+                key={idx}
+                className={`${getColorToApplyFromLetterStatus(
+                  letterStatus
+                )} m-0 p-0 ${isCurrentLetter ? "animate-pulse" : ""} `}
+              >
+                {x}
+              </span>
+            </>
           );
         })}
       </span>

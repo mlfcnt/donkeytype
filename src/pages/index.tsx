@@ -8,19 +8,23 @@ import { useFinalWordCount } from "../lib/hooks/useFinalWordCount";
 import { useFormatText } from "../lib/hooks/useFormatText";
 import { useTimer } from "../lib/hooks/useTimer";
 
+const TOTAL_TIME = 15_000;
+
 const Home: NextPage = () => {
-  const textToType = useSanitizedRandomWords("fr", 50, 7);
+  const textToType = useSanitizedRandomWords("fr", 30, 7);
   const [typedText, setTypedText] = useState("");
   const { formattedText } = useFormatText({
     textToType,
     typedText,
   });
-  const { remainingTime } = useTimer({ typedText, totalTime: 30_000 });
-  const { validWordCount, invalidWordCount, accuracy } = useFinalWordCount({
-    textToType,
-    typedText,
-    remainingTime,
-  });
+  const { remainingTime } = useTimer({ typedText, totalTime: TOTAL_TIME });
+  const { validWordCount, invalidWordCount, accuracy, wordsPerMinute } =
+    useFinalWordCount({
+      textToType,
+      typedText,
+      remainingTime,
+      totalTime: TOTAL_TIME,
+    });
 
   const timeIsUp = remainingTime <= 0;
 
@@ -42,16 +46,22 @@ const Home: NextPage = () => {
         onKeyUp={handleKeyUp}
         className="flex max-h-8  min-h-screen flex-col justify-center bg-gray-900 text-gray-100"
       >
-        <section className="mx-56 text-3xl">
-          <p className="my-8 italic text-yellow-500">{remainingTime / 1000}</p>
-          <p className="text-gray-600">{formattedText}</p>
-        </section>
-        {timeIsUp && (
+        {!timeIsUp ? (
+          <section className="mx-44 text-xl">
+            <p className="my-8 italic text-yellow-500">
+              {remainingTime / 1000}
+            </p>
+            <p className="text-justify text-2xl text-gray-600">
+              {formattedText}
+            </p>
+          </section>
+        ) : (
           <section className="mx-56 mt-16 border-2 border-yellow-500 p-4">
             <h2 className="mb-4 text-3xl underline">Recap</h2>
             <p>Mots valides : {validWordCount}</p>
             <p>Mots invalides : {invalidWordCount}</p>
             <p>Précision : {accuracy}%</p>
+            <p>wmp : {wordsPerMinute}</p>
           </section>
         )}
       </main>
